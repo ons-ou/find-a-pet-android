@@ -3,7 +3,8 @@
 ##### Présentation de l'Api
 Documentation : https://www.petfinder.com/developers/v2/docs/
 
-Authentification:
+Authentification
+Prend l'API_KEY et renvoit le token à utiliser avec les autres requêtes
 POST https://api.petfinder.com/v2/oauth2/token
 Body client_secret, client_id, grant_type ="client_credentials"
 
