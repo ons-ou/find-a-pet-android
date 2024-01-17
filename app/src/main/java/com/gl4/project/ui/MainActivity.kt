@@ -22,6 +22,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.gl4.project.R
 import com.gl4.project.data.vm.AnimalsViewModel
+import com.gl4.project.ui.components.TypeDetails.TypeDetailsPage
 import com.gl4.project.ui.components.detailspage.DetailsPage
 import com.gl4.project.ui.components.homepage.HomePage
 import com.gl4.project.ui.theme.ProjectTheme
@@ -63,6 +64,11 @@ class MainActivity : ComponentActivity() {
                                 val id = backStackEntry.arguments?.getString("id") ?: ""
                                 Log.d("nav", id)
                                 DetailsPage(id = id, viewModel = viewModel)
+                            }
+                            composable("pets/type/{type}") { backStackEntry ->
+                                val type = backStackEntry.arguments?.getString("type") ?: ""
+                                Log.d("nav", type)
+                                TypeDetailsPage(type = type, viewModel = viewModel)
                             }
                         }
                     }

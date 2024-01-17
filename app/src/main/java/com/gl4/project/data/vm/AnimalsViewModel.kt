@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gl4.project.data.entity.Animal
 import com.gl4.project.data.entity.AnimalTypes
+import com.gl4.project.data.entity.Type
 import com.gl4.project.data.repositories.AnimalsRepository
 import com.gl4.project.data.utilities.ResourceState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +19,9 @@ class AnimalsViewModel : ViewModel() {
     val animalsResponse: StateFlow<ResourceState<List<Animal>>> get() = _animals
 
     private val _animal = MutableStateFlow<ResourceState<Animal>>(ResourceState.Loading())
+    private val _type = MutableStateFlow<ResourceState<Type>>(ResourceState.Loading())
     val animal: StateFlow<ResourceState<Animal>> get() = _animal
+   val typeSelected: StateFlow<ResourceState<Type>> get() = _type
 
     private val _types = MutableStateFlow<ResourceState<AnimalTypes>>(ResourceState.Loading())
     val types: StateFlow<ResourceState<AnimalTypes>> get() = _types
@@ -51,7 +54,10 @@ class AnimalsViewModel : ViewModel() {
     fun changeType(breed: String? = null) {
         page = 1
         type = breed
+        var t = "all"
         getAnimals()
+        type?.let { getType(it) }
+
     }
 
     fun getAnimal(id: String) {
@@ -61,7 +67,13 @@ class AnimalsViewModel : ViewModel() {
             }
         }
     }
-
+    fun getType(type: String) {
+        viewModelScope.launch {
+            repository.getTypeInfo(type).collect {
+                    response -> _type.value = response
+            }
+        }
+    }
     fun getTypes() {
         viewModelScope.launch {
             repository.getTypes().collect {

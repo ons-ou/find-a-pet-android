@@ -1,3 +1,5 @@
+
+
 package com.gl4.project.ui.sampledata
 
 import com.gl4.project.data.entity.Address
@@ -69,4 +71,3 @@ fun SampleAnimal() = Animal(
     videos = listOf(),
     contact = Contact(Address("","", "Tunis", "Tunisia", "200", "TN"), "email", "")
 )
-

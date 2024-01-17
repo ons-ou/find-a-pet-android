@@ -1,9 +1,10 @@
 package com.gl4.project.data.api
-
 import com.gl4.project.data.entity.Animal
 import com.gl4.project.data.entity.AnimalResponse
 import com.gl4.project.data.entity.AnimalTypes
 import com.gl4.project.data.entity.AnimalsResponse
+import com.gl4.project.data.entity.Type
+import com.gl4.project.data.entity.TypeResponse
 import com.gl4.project.data.utilities.AuthBody
 import com.gl4.project.data.utilities.Token
 import retrofit2.Response
@@ -27,5 +28,10 @@ interface AnimalsApi {
 
     @GET("/v2/types")
     suspend fun getAnimalTypes(): Response<AnimalTypes>
+
+    @GET("/v2/types/{type}")
+    suspend fun getAnimalTypeInfo(@Path("type") type: String): Response<TypeResponse>
+
+
 
 }
