@@ -26,38 +26,32 @@ class AnimalsViewModel : ViewModel() {
     private val _types = MutableStateFlow<ResourceState<AnimalTypes>>(ResourceState.Loading())
     val types: StateFlow<ResourceState<AnimalTypes>> get() = _types
 
-    private var page = 1
-    private var type : String? = null
+    var arguments = mutableMapOf(
+        "page" to "1"
+    )
 
     init {
         getAnimals()
         getTypes()
     }
 
-    fun getAnimalCall(id: String){
-        when(animal.value){
-            is ResourceState.Success -> {
-                Log.d("Api", "here!!")
-                val a = (animal.value as ResourceState.Success<Animal>)
-                if (a.data.id !== id){
-                    getAnimal(id)
-                }
-            }
-            is ResourceState.Loading -> {
-                getAnimal(id)
-            }
-
-            else -> {}
-        }
+    fun changeType(breed: String? = null) {
+        arguments = mutableMapOf(
+            "type" to (breed?: ""),
+            "page" to "1"
+        )
+        if (breed != null)
+            getType(breed)
+        getAnimals()
     }
 
-    fun changeType(breed: String? = null) {
-        page = 1
-        type = breed
-        var t = "all"
-        getAnimals()
-        type?.let { getType(it) }
+    fun filter(coat: String, color:String, gender:String){
+        arguments["coat"] = coat
+        arguments["color"] = color
+        arguments["gender"] = gender
+        arguments["page"] = "1"
 
+        getAnimals()
     }
 
     fun getAnimal(id: String) {
@@ -83,30 +77,26 @@ class AnimalsViewModel : ViewModel() {
     }
 
     fun getAnimals() {
-        val queryMap = mutableMapOf<String, String>()
-
-        if(type != null) queryMap["type"] = type!!
-        queryMap["page"] = page.toString()
-
         viewModelScope.launch {
-            repository.getAnimals(queryMap).collect { response ->
+            repository.getAnimals(arguments).collect { response ->
                 when (response) {
                     is ResourceState.Success -> {
                         val newAnimals = response.data.animals
-                        val currentAnimals = if (page == 1) {
+                        val currentAnimals = if (arguments["page"] == "1") {
                             newAnimals
                         } else {
                             (_animals.value as? ResourceState.Success)?.data?.plus(newAnimals)
                                 ?: newAnimals
                         }
                         _animals.value = ResourceState.Success(currentAnimals)
-                        page++
+                        val currentPage = arguments["page"] as? Int ?: 1
+                        arguments["page"] = (currentPage + 1).toString()
                     }
                     is ResourceState.Error -> {
                         _animals.value = ResourceState.Error(response.error)
                     }
                     is ResourceState.Loading -> {
-                        if (page == 1) {
+                        if (arguments["page"] == "1") {
                             _animals.value = ResourceState.Loading()
                         }
                     }

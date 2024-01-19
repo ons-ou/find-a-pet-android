@@ -1,5 +1,6 @@
 package com.gl4.project.ui.components.homepage
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -55,7 +56,6 @@ fun HomePage(navController: NavController, viewModel: AnimalsViewModel) {
                     is ResourceState.Loading -> {}
                     is ResourceState.Success ->{
                         Button(
-
                             onClick = {
                                 val state = (typeSelected as ResourceState.Success<Type>)
                                 navController.navigate("pets/type/${state.data.name}")
@@ -68,8 +68,6 @@ fun HomePage(navController: NavController, viewModel: AnimalsViewModel) {
                         }
                     }
                     is ResourceState.Error -> {}
-
-
                 }
 
                 PetsPage(

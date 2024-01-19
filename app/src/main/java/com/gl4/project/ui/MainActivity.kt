@@ -47,7 +47,11 @@ class MainActivity : ComponentActivity() {
                         TopAppBar(
                             title = { Text(text = "Find a pet") },
                             navigationIcon = {
-                                Icon(painterResource(id = R.drawable.icon), "", Modifier.scale(0.5f))
+                                Icon(
+                                    painterResource(id = R.drawable.icon),
+                                    "",
+                                    Modifier.scale(0.5f)
+                                )
                             },
                             modifier = Modifier.background(MaterialTheme.colorScheme.primary)
                         )
@@ -57,7 +61,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(it)
                     ) {
                         NavHost(navController = navController, startDestination = "pets") {
-                            composable("pets") {
+                            composable(route = "pets") {
                                 HomePage(navController, viewModel)
                             }
                             composable("pets/{id}") { backStackEntry ->
@@ -68,7 +72,11 @@ class MainActivity : ComponentActivity() {
                             composable("pets/type/{type}") { backStackEntry ->
                                 val type = backStackEntry.arguments?.getString("type") ?: ""
                                 Log.d("nav", type)
-                                TypeDetailsPage(type = type, viewModel = viewModel)
+                                TypeDetailsPage(
+                                    type = type,
+                                    viewModel = viewModel,
+                                    navController = navController
+                                )
                             }
                         }
                     }

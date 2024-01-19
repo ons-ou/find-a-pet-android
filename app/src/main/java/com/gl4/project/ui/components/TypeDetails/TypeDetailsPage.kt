@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import com.gl4.project.data.entity.Animal
 import com.gl4.project.data.entity.Type
 import com.gl4.project.data.utilities.ResourceState
@@ -19,7 +20,7 @@ import com.gl4.project.ui.components.ErrorBox
 import com.gl4.project.ui.components.detailspage.PetDetails
 
 @Composable
-fun TypeDetailsPage(type: String, viewModel: AnimalsViewModel) {
+fun TypeDetailsPage(type: String, viewModel: AnimalsViewModel, navController: NavController) {
     val typeSelected by viewModel.typeSelected.collectAsState()
 
     when (typeSelected) {
@@ -35,10 +36,16 @@ fun TypeDetailsPage(type: String, viewModel: AnimalsViewModel) {
         }
         is ResourceState.Success -> {
             val state = (typeSelected as ResourceState.Success<Type>)
-            TypeDetails( type = state.data )
+            TypeDetails(
+                type = state.data,
+                onNavigateClick = { coat, color, gender ->
+                    viewModel.filter(coat, color, gender)
+                    navController.navigate("pets")
+                }
+            )
         }
         is ResourceState.Error -> {
-
+            ErrorBox(errorText = (typeSelected as ResourceState.Error<Type>).error, onClick = { viewModel.getType(type) })
         }
     }
 }

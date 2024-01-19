@@ -21,11 +21,10 @@ fun TypeSpinner(
     onItemSelect: (String?) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedType by remember { mutableStateOf("Cats") }
+    var selectedType by remember { mutableStateOf("All") }
 
     when (types) {
         is ResourceState.Success -> {
-            selectedType = "All"
             val typeNames: List<String> = listOf("All") + types.data.types.map { it.name }
 
             DropdownMenu(
@@ -48,7 +47,7 @@ fun TypeSpinner(
                             Text(
                                 text = type,
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = if (type == selectedType) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface // Customize text color
+                                color = if (type == selectedType) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
                             )
                         },
                         modifier = Modifier.fillMaxWidth()
@@ -61,6 +60,7 @@ fun TypeSpinner(
         }
         is ResourceState.Error -> {
             selectedType = "Error retrieving types"
+
         }
     }
 
