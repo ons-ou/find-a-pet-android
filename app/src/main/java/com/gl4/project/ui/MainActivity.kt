@@ -21,8 +21,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.gl4.project.R
+import com.gl4.project.data.repositories.AuthRepository
 import com.gl4.project.data.vm.AnimalsViewModel
 import com.gl4.project.ui.components.TypeDetails.TypeDetailsPage
+import com.gl4.project.ui.components.auth.LoginPage
+import com.gl4.project.ui.components.auth.RegisterPage
 import com.gl4.project.ui.components.detailspage.DetailsPage
 import com.gl4.project.ui.components.homepage.HomePage
 import com.gl4.project.ui.theme.ProjectTheme
@@ -35,6 +38,7 @@ class MainActivity : ComponentActivity() {
             ProjectTheme {
                 val navController = rememberNavController()
                 val viewModel = AnimalsViewModel()
+                val authRepository = AuthRepository()
 
                 BackHandler {
                     if (navController.currentBackStackEntry?.destination?.route == "pets") {
@@ -60,7 +64,13 @@ class MainActivity : ComponentActivity() {
                     Column(
                         modifier = Modifier.padding(it)
                     ) {
-                        NavHost(navController = navController, startDestination = "pets") {
+                        NavHost(navController = navController, startDestination = "login") {
+                            composable(route = "login") {
+                                LoginPage(navController, authRepository)
+                            }
+                            composable(route = "register") {
+                                RegisterPage(navController, authRepository)
+                            }
                             composable(route = "pets") {
                                 HomePage(navController, viewModel)
                             }
