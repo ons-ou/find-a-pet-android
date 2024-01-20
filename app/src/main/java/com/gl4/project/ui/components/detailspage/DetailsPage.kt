@@ -12,11 +12,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import com.gl4.project.data.entity.Animal
 import com.gl4.project.data.utilities.ResourceState
 import com.gl4.project.data.vm.AnimalsViewModel
 import com.gl4.project.ui.components.ErrorBox
-
 @Composable
 fun DetailsPage(id: String, viewModel: AnimalsViewModel) {
     val animal by viewModel.animal.collectAsState()

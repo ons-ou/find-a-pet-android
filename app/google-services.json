@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "865864139882",
+    "project_id": "find-a-pet-6b71b",
+    "storage_bucket": "find-a-pet-6b71b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865864139882:android:708bd4c78887afee05b613",
+        "android_client_info": {
+          "package_name": "com.gl4.project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjnbtcrU_L0oUyoVZpWUnODjqw5f86Vbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
