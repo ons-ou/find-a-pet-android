@@ -20,7 +20,7 @@ GET https://api.petfinder.com/v2/animals/{id}
 
 
 ##### Fonctionnalités
-2 Page pour l'authentification : Page de Login et page de création du compte
+2 Pages pour l'authentification : Page de Login et page de création du compte
 
 Page d'accueil des animaux : Présente tous les animaux disponibles.
 
