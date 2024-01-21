@@ -20,6 +20,7 @@ GET https://api.petfinder.com/v2/animals/{id}
 
 
 ##### Fonctionnalités
+2 Page pour l'authentification : Page de Login et page de création du compte
 
 Page d'accueil des animaux : Présente tous les animaux disponibles.
 
@@ -35,7 +36,20 @@ Nous avons opté pour l'architecture Modèle-Vue-VueModèle (MVVM) en raison de 
 En ce qui concerne la conception de l'interface utilisateur, nous avons choisi Jetpack Compose en raison de son approche déclarative, de sa réactivité intégrée, et de son écriture entièrement en Kotlin, offrant ainsi une intégration harmonieuse avec le reste du code Kotlin de l'application. 
 Ces choix visent à garantir une architecture robuste, testable et moderne pour le développement d'applications d'adoption d'animaux domestiques.
 
+Pour la partie authentification on a opté pour l'utilisation du realtime database avec Firebase : voilà la liste des utilisateurs qui ont créés des comptes 
+
+![imageauth1](https://github.com/ons-ou/find-a-pet-android/assets/69814778/c84e5b5a-ada5-4eaf-bc88-4605978211c0)
+
 ##### Présentation de l'Application
+
+Page de Login  : 
+
+![sign in](https://github.com/ons-ou/find-a-pet-android/assets/69814778/7cf831b2-0948-411b-b1a4-78c708eea640)
+
+Page de Création du compte  : 
+
+![sign up](https://github.com/ons-ou/find-a-pet-android/assets/69814778/c32c1664-9806-4aa8-b60a-a06612120d3c)
+
 Page d'acceuil:
 
 ![img.png](img.png)
